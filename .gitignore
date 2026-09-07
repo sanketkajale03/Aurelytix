@@ -1,0 +1,80 @@
+# ==============================
+# Aurelytix - Git Ignore Rules
+# ==============================
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Virtual Environment
+.venv/
+venv/
+env/
+
+# Environment Variables
+.env
+.env.*
+!.env.example
+
+# Flask
+instance/
+.webassets-cache/
+
+# Testing
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+# Type Checking
+.mypy_cache/
+.pyre/
+.pytype/
+
+# IDE
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+.idea/
+*.swp
+*.swo
+
+# Operating System
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+logs/
+*.log
+
+# Temporary Files
+*.tmp
+*.temp
+
+# Build / Distribution
+build/
+dist/
+*.egg-info/
+
+# Reports generated locally
+reports/generated/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Node
+node_modules/
+
+# Secrets / Credentials
+*.pem
+*.key
+*.crt
+
+# Local database files
+*.sqlite
+*.sqlite3
