@@ -5,7 +5,12 @@ from app.models.media_owner import MediaOwner
 from app.models.channel import Channel
 from app.models.audience_segment import AudienceSegment
 from app.models.location import Location
-from app.models.campaign import Campaign
+from app.models.campaign import (
+    Campaign,
+    campaign_channels,
+    campaign_locations,
+    campaign_audiences,
+)
 from app.models.campaign_performance import CampaignPerformance
 
 __all__ = [
@@ -18,4 +23,7 @@ __all__ = [
     "Location",
     "Campaign",
     "CampaignPerformance",
+    "campaign_channels",
+    "campaign_locations",
+    "campaign_audiences",
 ]
