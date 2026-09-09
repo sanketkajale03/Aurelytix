@@ -5,6 +5,9 @@ from app.services.analytics_service import AnalyticsService
 
 analytics_bp = Blueprint("analytics", __name__)
 
+@analytics_bp.get("/api/analytics/kpis")
+def analytics_kpis():
+    return jsonify(AnalyticsService.get_kpis()), 200
 
 @analytics_bp.get("/api/analytics/channel-performance")
 def channel_performance():

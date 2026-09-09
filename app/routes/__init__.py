@@ -8,6 +8,7 @@ from app.routes.media_owners import media_owners_bp
 from app.routes.advertisers import advertisers_bp
 from app.routes.audiences import audiences_bp
 from app.routes.locations import locations_bp
+from app.routes.optimization import optimization_bp
 
 
 def register_routes(app):
@@ -21,6 +22,7 @@ def register_routes(app):
     app.register_blueprint(advertisers_bp)
     app.register_blueprint(audiences_bp)
     app.register_blueprint(locations_bp)
+    app.register_blueprint(optimization_bp)
     @app.route("/")
     def home():
         return {
