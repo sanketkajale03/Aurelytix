@@ -21,3 +21,14 @@ def optimize_campaigns():
         "total_campaigns": len(recommendations),
         "recommendations": recommendations,
     }), 200
+
+@optimization_bp.get("/api/optimization/channels")
+def optimize_channels():
+    from app.machine_learning.channel_optimizer import ChannelOptimizer
+
+    recommendations = ChannelOptimizer.optimize_all_channels()
+
+    return jsonify({
+        "total_channels": len(recommendations),
+        "recommendations": recommendations,
+    }), 200
