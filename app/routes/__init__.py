@@ -5,6 +5,7 @@ from app.routes.health import health_bp
 from app.routes.agencies import agencies_bp
 from app.routes.brands import brands_bp
 from app.routes.media_owners import media_owners_bp
+from app.routes.advertisers import advertisers_bp
 
 
 def register_routes(app):
@@ -15,7 +16,8 @@ def register_routes(app):
     app.register_blueprint(agencies_bp)
     app.register_blueprint(brands_bp)
     app.register_blueprint(media_owners_bp)
-    
+    app.register_blueprint(advertisers_bp)
+
     @app.route("/")
     def home():
         return {
