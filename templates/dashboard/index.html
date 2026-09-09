@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Aurelytix</title>
+</head>
+<body>
+<h1>Aurelytix Dashboard</h1>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Aurelytix | Campaign Intelligence</title>
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/dashboard.css') }}"
+    >
+</head>
+
+<body>
+
+<div class="app-shell">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-mark">A</div>
+
+            <div>
+                <div class="brand-name">Aurelytix</div>
+                <div class="brand-subtitle">Campaign Intelligence</div>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+
+            <div class="nav-section-title">MAIN</div>
+
+            <a href="/dashboard" class="nav-item active">
+                <i class="fa-solid fa-chart-pie"></i>
+                <span>Dashboard</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-bullhorn"></i>
+                <span>Campaigns</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Analytics</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-location-dot"></i>
+                <span>Locations</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-users"></i>
+                <span>Audiences</span>
+            </a>
+
+            <div class="nav-section-title">MANAGEMENT</div>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-building"></i>
+                <span>Advertisers</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-layer-group"></i>
+                <span>Brands</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-tv"></i>
+                <span>Media Owners</span>
+            </a>
+
+            <div class="nav-section-title">SYSTEM</div>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-file-chart-column"></i>
+                <span>Reports</span>
+            </a>
+
+            <a href="#" class="nav-item">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+            </a>
+
+        </nav>
+
+        <div class="sidebar-footer">
+
+            <div class="system-status">
+                <span class="status-dot"></span>
+
+                <div>
+                    <strong>System Operational</strong>
+                    <small>All services running</small>
+                </div>
+            </div>
+
+            <div class="version">
+                Aurelytix v1.0.0
+            </div>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+        <!-- TOP BAR -->
+        <header class="topbar">
+
+            <div>
+                <div class="page-label">OVERVIEW</div>
+                <h1>Campaign Intelligence</h1>
+                <p>Monitor advertising performance across every channel.</p>
+            </div>
+
+            <div class="topbar-actions">
+
+                <button class="date-filter">
+                    <i class="fa-regular fa-calendar"></i>
+                    <span>2025 Campaign Data</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </button>
+
+                <button class="icon-button">
+                    <i class="fa-regular fa-bell"></i>
+                </button>
+
+                <div class="user-avatar">
+                    SK
+                </div>
+
+            </div>
+
+        </header>
+
+
+        <!-- KPI CARDS -->
+        <section class="kpi-grid">
+
+            <div class="kpi-card">
+
+                <div class="kpi-top">
+                    <div class="kpi-icon">
+                        <i class="fa-solid fa-bullhorn"></i>
+                    </div>
+
+                    <span class="kpi-badge positive">
+                        <i class="fa-solid fa-arrow-up"></i>
+                        Active
+                    </span>
+                </div>
+
+                <div class="kpi-label">Total Campaigns</div>
+
+                <div class="kpi-value" id="campaigns">
+                    --
+                </div>
+
+                <div class="kpi-description">
+                    Campaigns tracked across the platform
+                </div>
+
+            </div>
+
+
+            <div class="kpi-card">
+
+                <div class="kpi-top">
+                    <div class="kpi-icon">
+                        <i class="fa-solid fa-play"></i>
+                    </div>
+
+                    <span class="kpi-badge positive">
+                        Live
+                    </span>
+                </div>
+
+                <div class="kpi-label">Active Campaigns</div>
+
+                <div class="kpi-value" id="active-campaigns">
+                    --
+                </div>
+
+                <div class="kpi-description">
+                    Currently running campaigns
+                </div>
+
+            </div>
+
+
+            <div class="kpi-card">
+
+                <div class="kpi-top">
+                    <div class="kpi-icon">
+                        <i class="fa-solid fa-wallet"></i>
+                    </div>
+
+                    <span class="kpi-badge neutral">
+                        Spend
+                    </span>
+                </div>
+
+                <div class="kpi-label">Total Spend</div>
+
+                <div class="kpi-value" id="spend">
+                    --
+                </div>
+
+                <div class="kpi-description">
+                    Advertising investment
+                </div>
+
+            </div>
+
+
+            <div class="kpi-card">
+
+                <div class="kpi-top">
+                    <div class="kpi-icon">
+                        <i class="fa-solid fa-chart-simple"></i>
+                    </div>
+
+                    <span class="kpi-badge positive">
+                        <i class="fa-solid fa-arrow-up"></i>
+                        ROAS
+                    </span>
+                </div>
+
+                <div class="kpi-label">Return on Ad Spend</div>
+
+                <div class="kpi-value" id="roas">
+                    --
+                </div>
+
+                <div class="kpi-description">
+                    Revenue generated per ₹1 spent
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- SECONDARY KPIs -->
+        <section class="secondary-kpis">
+
+            <div class="mini-metric">
+                <span>Total Revenue</span>
+                <strong id="revenue">--</strong>
+            </div>
+
+            <div class="mini-metric">
+                <span>Impressions</span>
+                <strong id="impressions">--</strong>
+            </div>
+
+            <div class="mini-metric">
+                <span>Clicks</span>
+                <strong id="clicks">--</strong>
+            </div>
+
+            <div class="mini-metric">
+                <span>CTR</span>
+                <strong id="ctr">--</strong>
+            </div>
+
+            <div class="mini-metric">
+                <span>CPC</span>
+                <strong id="cpc">--</strong>
+            </div>
+
+            <div class="mini-metric">
+                <span>Advertisers</span>
+                <strong id="advertisers">--</strong>
+            </div>
+
+        </section>
+
+
+        <!-- CHARTS -->
+        <section class="dashboard-grid">
+
+            <!-- TREND CHART -->
+            <div class="panel panel-large">
+
+                <div class="panel-header">
+
+                    <div>
+                        <div class="panel-title">
+                            Performance Trends
+                        </div>
+
+                        <div class="panel-subtitle">
+                            Daily advertising performance
+                        </div>
+                    </div>
+
+                    <div class="panel-actions">
+                        <button class="chart-filter active">Revenue</button>
+                        <button class="chart-filter">Spend</button>
+                        <button class="chart-filter">Clicks</button>
+                    </div>
+
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="trendChart"></canvas>
+                </div>
+
+            </div>
+
+
+            <!-- CHANNEL CHART -->
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <div class="panel-title">
+                            Channel Performance
+                        </div>
+
+                        <div class="panel-subtitle">
+                            Spend distribution
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="chart-container doughnut-container">
+                    <canvas id="channelChart"></canvas>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- LOCATION + CAMPAIGN -->
+        <section class="dashboard-grid">
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <div class="panel-title">
+                            Location Performance
+                        </div>
+
+                        <div class="panel-subtitle">
+                            Geographic campaign results
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="location-list" class="location-list">
+                    <div class="loading-state">
+                        Loading location data...
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div class="panel">
+
+                <div class="panel-header">
+
+                    <div>
+                        <div class="panel-title">
+                            Top Campaigns
+                        </div>
+
+                        <div class="panel-subtitle">
+                            Highest revenue campaigns
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="campaign-list" class="campaign-list">
+                    <div class="loading-state">
+                        Loading campaign data...
+                    </div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- CAMPAIGN TABLE -->
+        <section class="panel campaign-table-panel">
+
+            <div class="panel-header">
+
+                <div>
+                    <div class="panel-title">
+                        Campaign Performance
+                    </div>
+
+                    <div class="panel-subtitle">
+                        Detailed campaign-level analytics
+                    </div>
+                </div>
+
+                <button class="view-all-button">
+                    View All
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+            </div>
+
+            <div class="table-responsive">
+
+                <table class="dashboard-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Campaign</th>
+                            <th>Status</th>
+                            <th>CTR</th>
+                            <th>Spend</th>
+                            <th>Revenue</th>
+                            <th>ROAS</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="campaign-table-body">
+
+                        <tr>
+                            <td colspan="6">
+                                <div class="loading-state">
+                                    Loading campaign data...
+                                </div>
+                            </td>
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer class="dashboard-footer">
+
+            <span>
+                © 2026 Aurelytix Analytics Platform
+            </span>
+
+            <span>
+                Turning Campaign Data into Intelligent Decisions.
+            </span>
+
+        </footer>
+
+    </main>
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+</body>
+</html>
