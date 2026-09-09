@@ -7,8 +7,6 @@ class AgencyService:
 
     @staticmethod
     def get_all():
-        """Return all agencies."""
-
         agencies = Agency.query.order_by(
             Agency.created_at.desc()
         ).all()
@@ -27,8 +25,6 @@ class AgencyService:
 
     @staticmethod
     def get_by_id(agency_id):
-        """Return a single agency."""
-
         agency = db.session.get(Agency, agency_id)
 
         if agency is None:
@@ -45,7 +41,6 @@ class AgencyService:
 
     @staticmethod
     def create(data):
-        """Create a new agency."""
 
         agency = Agency(
             agency_name=data["agency_name"],
@@ -58,38 +53,49 @@ class AgencyService:
         db.session.add(agency)
         db.session.commit()
 
-        return AgencyService.get_by_id(agency.agency_id)
+        return AgencyService.get_by_id(
+            agency.agency_id
+        )
 
     @staticmethod
     def update(agency_id, data):
-        """Update an existing agency."""
 
-        agency = db.session.get(Agency, agency_id)
+        agency = db.session.get(
+            Agency,
+            agency_id,
+        )
 
         if agency is None:
             return None
 
-        allowed_fields = [
-            "agency_name",
-            "agency_code",
-            "contact_email",
-            "contact_phone",
-            "status",
-        ]
+        if "agency_name" in data:
+            agency.agency_name = data["agency_name"]
 
-        for field in allowed_fields:
-            if field in data:
-                setattr(agency, field, data[field])
+        if "agency_code" in data:
+            agency.agency_code = data["agency_code"]
+
+        if "contact_email" in data:
+            agency.contact_email = data["contact_email"]
+
+        if "contact_phone" in data:
+            agency.contact_phone = data["contact_phone"]
+
+        if "status" in data:
+            agency.status = data["status"]
 
         db.session.commit()
 
-        return AgencyService.get_by_id(agency_id)
+        return AgencyService.get_by_id(
+            agency_id
+        )
 
     @staticmethod
     def delete(agency_id):
-        """Delete an agency."""
 
-        agency = db.session.get(Agency, agency_id)
+        agency = db.session.get(
+            Agency,
+            agency_id,
+        )
 
         if agency is None:
             return False
