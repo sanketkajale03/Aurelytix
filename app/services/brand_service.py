@@ -3,19 +3,21 @@ from app.models import Brand
 
 
 class BrandService:
-    """Business logic for Brand Management."""
 
     @staticmethod
     def get_all():
-        brands = Brand.query.order_by(Brand.brand_name).all()
+        brands = Brand.query.order_by(
+            Brand.created_at.desc()
+        ).all()
 
         return [
             {
                 "brand_id": brand.brand_id,
-                "brand_code": brand.brand_code,
+                "advertiser_id": brand.advertiser_id,
                 "brand_name": brand.brand_name,
-                "industry": brand.industry,
-                "website": brand.website,
+                "brand_code": brand.brand_code,
+                "category": brand.category,
+                "status": brand.status,
             }
             for brand in brands
         ]
@@ -24,20 +26,27 @@ class BrandService:
     def get_by_id(brand_id):
         brand = db.session.get(Brand, brand_id)
 
-        if not brand:
+        if brand is None:
             return None
 
         return {
             "brand_id": brand.brand_id,
-            "brand_code": brand.brand_code,
+            "advertiser_id": brand.advertiser_id,
             "brand_name": brand.brand_name,
-            "industry": brand.industry,
-            "website": brand.website,
+            "brand_code": brand.brand_code,
+            "category": brand.category,
+            "status": brand.status,
         }
 
     @staticmethod
     def create(data):
-        brand = Brand(**data)
+        brand = Brand(
+            advertiser_id=data["advertiser_id"],
+            brand_name=data["brand_name"],
+            brand_code=data["brand_code"],
+            category=data.get("category"),
+            status=data.get("status", "ACTIVE"),
+        )
 
         db.session.add(brand)
         db.session.commit()
@@ -48,21 +57,30 @@ class BrandService:
     def update(brand_id, data):
         brand = db.session.get(Brand, brand_id)
 
-        if not brand:
+        if brand is None:
             return None
 
-        for key, value in data.items():
-            setattr(brand, key, value)
+        allowed_fields = [
+            "advertiser_id",
+            "brand_name",
+            "brand_code",
+            "category",
+            "status",
+        ]
+
+        for field in allowed_fields:
+            if field in data:
+                setattr(brand, field, data[field])
 
         db.session.commit()
 
-        return BrandService.get_by_id(brand.brand_id)
+        return BrandService.get_by_id(brand_id)
 
     @staticmethod
     def delete(brand_id):
         brand = db.session.get(Brand, brand_id)
 
-        if not brand:
+        if brand is None:
             return False
 
         db.session.delete(brand)
