@@ -35,3 +35,32 @@ def allocate_budget():
     allocation = BudgetAllocator.allocate_budget(budget)
 
     return jsonify(allocation), 200
+
+@optimization_bp.get("/api/optimization/forecast/<int:campaign_id>")
+def forecast_campaign(campaign_id):
+    from flask import request
+
+    from app.machine_learning.campaign_forecaster import (
+        CampaignForecaster,
+    )
+
+    days = request.args.get(
+        "days",
+        default=7,
+        type=int,
+    )
+
+    if days <= 0 or days > 30:
+        return jsonify({
+            "error": "Days must be between 1 and 30."
+        }), 400
+
+    result = CampaignForecaster.forecast_campaign(
+        campaign_id,
+        days,
+    )
+
+    if "error" in result:
+        return jsonify(result), 400
+
+    return jsonify(result), 200
