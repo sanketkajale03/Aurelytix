@@ -64,3 +64,22 @@ def forecast_campaign(campaign_id):
         return jsonify(result), 400
 
     return jsonify(result), 200
+
+    
+
+@optimization_bp.get(
+    "/api/optimization/recommendation/<int:campaign_id>"
+)
+def campaign_recommendation(campaign_id):
+    from app.machine_learning.recommendation_engine import (
+        RecommendationEngine,
+    )
+
+    result = RecommendationEngine.generate_recommendation(
+        campaign_id
+    )
+
+    if "error" in result:
+        return jsonify(result), 404
+
+    return jsonify(result), 200
