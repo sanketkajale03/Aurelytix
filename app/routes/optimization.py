@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify
 from app.machine_learning.audience_optimizer import AudienceOptimizer
+from app.machine_learning.geographic_optimizer import GeographicOptimizer
 
 optimization_bp = Blueprint("optimization", __name__)
 
@@ -94,6 +95,22 @@ def audience_optimization():
         return jsonify({
             "total_segments": len(results),
             "audiences": results
+        })
+
+    except Exception as exc:
+        return jsonify({
+            "error": str(exc)
+        }), 500
+
+
+@optimization_bp.route("/api/optimization/locations", methods=["GET"])
+def geographic_optimization():
+    try:
+        results = GeographicOptimizer.analyze_locations()
+
+        return jsonify({
+            "total_locations": len(results),
+            "locations": results
         })
 
     except Exception as exc:
