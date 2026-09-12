@@ -1,4 +1,5 @@
 from flask import Blueprint, jsonify
+from app.machine_learning.audience_optimizer import AudienceOptimizer
 
 optimization_bp = Blueprint("optimization", __name__)
 
@@ -83,3 +84,19 @@ def campaign_recommendation(campaign_id):
         return jsonify(result), 404
 
     return jsonify(result), 200
+
+
+@optimization_bp.route("/api/optimization/audiences", methods=["GET"])
+def audience_optimization():
+    try:
+        results = AudienceOptimizer.analyze_audiences()
+
+        return jsonify({
+            "total_segments": len(results),
+            "audiences": results
+        })
+
+    except Exception as exc:
+        return jsonify({
+            "error": str(exc)
+        }), 500
