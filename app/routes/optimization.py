@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify
 from app.machine_learning.audience_optimizer import AudienceOptimizer
 from app.machine_learning.geographic_optimizer import GeographicOptimizer
+from app.machine_learning.anomaly_detector import AnomalyDetector
 
 optimization_bp = Blueprint("optimization", __name__)
 
@@ -112,6 +113,25 @@ def geographic_optimization():
             "total_locations": len(results),
             "locations": results
         })
+
+    except Exception as exc:
+        return jsonify({
+            "error": str(exc)
+        }), 500
+
+
+@optimization_bp.route(
+    "/api/optimization/anomalies/<int:campaign_id>",
+    methods=["GET"]
+)
+def campaign_anomalies(campaign_id):
+    try:
+        result = AnomalyDetector.detect_campaign_anomalies(campaign_id)
+
+        if "error" in result:
+            return jsonify(result), 404
+
+        return jsonify(result)
 
     except Exception as exc:
         return jsonify({
