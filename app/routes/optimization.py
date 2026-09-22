@@ -2,6 +2,8 @@ from flask import Blueprint, jsonify
 from app.machine_learning.audience_optimizer import AudienceOptimizer
 from app.machine_learning.geographic_optimizer import GeographicOptimizer
 from app.machine_learning.anomaly_detector import AnomalyDetector
+from app.machine_learning.insight_engine import InsightEngine
+from flask import render_template
 
 optimization_bp = Blueprint("optimization", __name__)
 
@@ -137,3 +139,27 @@ def campaign_anomalies(campaign_id):
         return jsonify({
             "error": str(exc)
         }), 500
+
+
+@optimization_bp.route(
+    "/api/optimization/insights/<int:campaign_id>",
+    methods=["GET"]
+)
+def campaign_insights(campaign_id):
+    try:
+        result = InsightEngine.generate_insights(campaign_id)
+
+        if "error" in result:
+            return jsonify(result), 404
+
+        return jsonify(result)
+
+    except Exception as exc:
+        return jsonify({
+            "error": str(exc)
+        }), 500
+
+
+@optimization_bp.route("/ai-insights")
+def ai_insights_page():
+    return render_template("ai_insights.html")
